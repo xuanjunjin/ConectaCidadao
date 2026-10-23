@@ -32,7 +32,7 @@
   .audio-player .play-btn { font-size: 70px; cursor: pointer; color: #e67e22; }
   .audio-player .play-btn:hover { transform: scale(1.1); }
   .audio-player p { margin-top: 15px; font-size: 16px; color: #555; }
-  .sms-item { background: #e8f4fd; border-radius: 10px; padding: 12px; margin: 10px 0; font-size: 14px; }
+  .sms-item { background: #e8f4fd; border-radius: 10px; padding: 12px; margin: 10px 0; font-size: 14px; border-left: 4px solid #1a5276; }
   .sms-item small { color: #888; display: block; margin-top: 6px; }
   .welcome { text-align: center; padding: 20px 0; }
   .welcome .icon-big { font-size: 60px; }
@@ -80,8 +80,13 @@
       <button class="btn btn-audio" onclick="irPara('screen6', 'Ouvir Instruções')">
         <span class="icon">🔊</span> Ouvir Instruções
       </button>
-      <button class="btn" onclick="irPara('screen7', 'Minhas Mensagens')">
+      <!-- SEPARADO: Meus Agendamentos -->
+      <button class="btn" style="background: #2980b9;" onclick="irPara('screen7', 'Meus Agendamentos')">
         <span class="icon">📁</span> Meus Agendamentos
+      </button>
+      <!-- SEPARADO: Minhas Mensagens -->
+      <button class="btn" style="background: #8e44ad;" onclick="irPara('screen8', 'Minhas Mensagens')">
+        <span class="icon">📩</span> Minhas Mensagens (SMS)
       </button>
       <div class="footer">Atendimento 24h – Gratuito</div>
     </div>
@@ -191,21 +196,46 @@
       </div>
     </div>
 
-    <!-- TELA 7: MENSAGENS SMS -->
+    <!-- TELA 7: MEUS AGENDAMENTOS (SOMENTE AGENDAMENTOS) -->
     <div class="screen" id="screen7">
+      <h3 style="margin-bottom: 15px; color: #1a5276;">Seus agendamentos marcados:</h3>
+      
+      <!-- Card de agendamento 1 -->
+      <div class="card" style="border-left-color: #27ae60;">
+        <h3>✅ CRAS Centro</h3>
+        <p><strong>Data:</strong> 15/10/2026 às 14:00</p>
+        <p><strong>Serviço:</strong> Recadastramento Bolsa Família</p>
+        <p>Status: <span class="status-ativo">Confirmado</span></p>
+      </div>
+
+      <button class="btn btn-success" style="margin-top: 20px;" onclick="irPara('screen4', 'Agendar Atendimento')">
+        <span class="icon">➕</span> Fazer Novo Agendamento
+      </button>
+      <button class="btn" onclick="irPara('screen1', 'ConectaCidadão')">
+        <span class="icon">🏠</span> Voltar ao Início
+      </button>
+    </div>
+
+    <!-- TELA 8: MINHAS MENSAGENS (SMS) -->
+    <div class="screen" id="screen8">
+      <h3 style="margin-bottom: 15px; color: #1a5276;">Caixa de entrada (SMS):</h3>
+
       <div class="sms-item">
         <strong>📩 SMS 1</strong><br>
         Seu recadastramento vence em 15 dias. Documentos: RG, CPF, Comprovante.
         <small>Recebido em 28/09/2026 às 09:15</small>
       </div>
+
       <div class="sms-item">
         <strong>📩 SMS 2</strong><br>
         Agendamento confirmado para 15/10/2026 às 14h no CRAS Centro.
         <small>Recebido em 28/09/2026 às 09:16</small>
       </div>
-      <button class="btn btn-audio" onclick="irPara('screen6', 'Ouvir Instruções')">
-        <span class="icon">🔊</span> Ouvir Instruções
+
+      <button class="btn btn-audio" style="margin-top: 20px;" onclick="irPara('screen6', 'Ouvir Instruções')">
+        <span class="icon">🔊</span> Ouvir Instruções (Áudio)
       </button>
+      
       <button class="btn" onclick="irPara('screen1', 'ConectaCidadão')">
         <span class="icon">🏠</span> Voltar ao Início
       </button>
@@ -293,7 +323,7 @@
   function atualizarProgresso(tela) {
     const dots = document.querySelectorAll('.dot');
     dots.forEach(d => d.classList.remove('active'));
-    const mapa = { screen1: 0, screen2: 1, screen3: 1, screen4: 2, screen5: 2, screen6: 2, screen7: 1 };
+    const mapa = { screen1: 0, screen2: 1, screen3: 1, screen4: 2, screen5: 2, screen6: 2, screen7: 1, screen8: 1 };
     const idx = mapa[tela] || 0;
     if (dots[idx]) dots[idx].classList.add('active');
   }
